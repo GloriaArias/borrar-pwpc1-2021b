@@ -11,9 +11,15 @@ const server = http.createServer((req, res)=>{
     console.log(`Información de la petición`);
     console.log(`url: ${req.url}`);
     console.log(`Request Method: ${req.method}`);
-    console.log(`Plataforma del cliente: ${req.headers["sec-ch-ua-platform"]}`);
-    //Respondemos
-    res.write('Esta es la respuesta del servidor.');
+    //Establecer el tipo de contenido que se entregará al cliente
+    res.setHeader('Content-Type','text/html');
+
+    //Envío el contenido
+    res.write("<html>");
+    res.write("<head><title>My App</title></head>");
+    res.write(`<body><h1>Hello from the server &#128519;
+</h1><p style = "color:red">Recurso solicitado: ${req.url}</p></body>`);
+    res.write('</html>');
     //Terminamos la conexión
     res.end();
 });
