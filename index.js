@@ -7,8 +7,13 @@ import http from 'http';
 //(request, response)
 const server = http.createServer((req, res)=>{
     console.log("> Se ha recibido una petición.");
+    //Registrar información de la petición
+    console.log(`Información de la petición`);
+    console.log(`url: ${req.url}`);
+    console.log(`Request Method: ${req.method}`);
+    console.log(`Plataforma del cliente: ${req.headers["sec-ch-ua-platform"]}`);
     //Respondemos
-    res.write('Hola');
+    res.write('Esta es la respuesta del servidor.');
     //Terminamos la conexión
     res.end();
 });
