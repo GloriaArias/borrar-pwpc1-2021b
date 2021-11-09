@@ -23,6 +23,22 @@ import http from 'http';
             res.write('<body><h1>&#9889; Hello from my server &#9889;</h1></body>')
             res.write('</html>');
             res.end();
+        }
+        else if(url === '/author'){
+             //Respuesta ante "Get /"
+            // 1. Estableciendo el tipo de retorno como HTML
+            res.setHeader('Content-Type', 'text/html');
+            let url_image = 'https://avatars.githubusercontent.com/u/92901477?s=96&v=4';
+            // 2. Escribiendo la respuesta
+            res.write('<html>');
+            res.write('<head><title>My App</title></head>');
+            res.write('<body>');
+            res.write('<h1>&#9889; Author &#9889;</h1>');
+            res.write('<p>Gloria Arias Utrera</p>');
+            res.write(`<img width="300px" src="${url_image}" alt="Foto Gloria Arias">`);
+            res.write('</body>');
+            res.write('</html>');
+            res.end();
 
         }else{
             //Se registra el Recurso no encontrado
