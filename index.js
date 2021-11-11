@@ -1,5 +1,6 @@
 // 1. Importar el modulo http
 import http from 'http';
+import { parse } from 'path';
 
 // 2. Crear el servidor
 //cb es una *función* que se ejecutará
@@ -18,11 +19,55 @@ import http from 'http';
             // 1. Estableciendo el tipo de retorno como HTML
             res.setHeader('Content-Type', 'text/html');
             // 2. Escribiendo la respuesta
-            res.write('<html>')
-            res.write('<head><title>My App</title></head>');
-            res.write('<body><h1>&#9889; Hello from my server &#9889;</h1></body>')
-            res.write('</html>');
+            res.write(`
+            <html>
+              <head>
+                <title>Enter message</title>
+                </head>
+                <body>
+                  <h1>Send Message</h1>
+                 <form action = "/message" method= "POST">
+                 <input type= "text" name="message">
+                 <button type="submit">Send</button>
+                 </form>
+                 </body>
+                 </html>
+                 `);
             res.end();
+        }
+        else if(url === '/message' && method === "POST"){
+            //1. Crea una variable para guardar los datos de entrada
+            let body = [];
+            //2. Registrar un manejador para la entrada de los datos
+            req.on("data",(chunk)=>{
+            //2.1 Registrando los trozos de datos que llegan al backend
+            console.log(chunk);
+            //2.2 Acumulo los datos de entrada
+            body.push(chunk);
+            //2.3 Protección en caso de recepción masiva de datos
+            if(body.length > 1e6) req.socket.destroy();
+        });
+        //3. Registrando un manejador de fin de recepción de datos
+        req.on('end' , ()=>{
+            const parseBody = Buffer.concat(body).toString();
+            const message = parseBody.split('=')[1];
+            console.log(`${parseBody}`);
+            res.write(`
+            
+            <html>
+              <head>
+                <title>Received message</title>
+                </head>
+                <body>
+                  <h1>Received Message</h1>
+                  <p>Thank you!!!</p>
+                  <p>The message we received was this: ${message}</p>
+                 </body>
+                 </html>
+            `);
+            //Finalizo conección
+            return res.end();
+        });
         }
         else if(url === '/author'){
              //Respuesta ante "Get /"
