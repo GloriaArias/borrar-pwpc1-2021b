@@ -1,6 +1,6 @@
 // 1. Importar el modulo http
 import http from 'http';
-import { parse } from 'path';
+import fs from "fs";
 
 // 2. Crear el servidor
 //cb es una *función* que se ejecutará
@@ -51,22 +51,15 @@ import { parse } from 'path';
         req.on('end' , ()=>{
             const parseBody = Buffer.concat(body).toString();
             const message = parseBody.split('=')[1];
-            console.log(`${parseBody}`);
-            res.write(`
-            
-            <html>
-              <head>
-                <title>Received message</title>
-                </head>
-                <body>
-                  <h1>Received Message</h1>
-                  <p>Thank you!!!</p>
-                  <p>The message we received was this: ${message}</p>
-                 </body>
-                 </html>
-            `);
+            // Guardando el mensaje en un archivo
+            fs.writeFileSync('message.txt', message);
+            //Establecer el status code
+            res.statusCode = 302;
+            //Establecer la ruta de direcciones
+            res.setHeader('Location','/');
             //Finalizo conección
             return res.end();
+            
         });
         }
         else if(url === '/author'){
