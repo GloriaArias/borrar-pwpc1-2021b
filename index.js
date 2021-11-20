@@ -47,19 +47,37 @@ import fs from "fs";
             //2.3 Protección en caso de recepción masiva de datos
             if(body.length > 1e6) req.socket.destroy();
         });
+
+        //EjecutaOperacion(ARGS1,ARG2,ARG3, cb)
+        //Suma2Numeros(1,2(res)=>{console.log(res)})
+        /*
+        1. let res = Suma2Numeros(1,2);
+        2. console.log(res) //undefined
+        */
+
+
         //3. Registrando un manejador de fin de recepción de datos
         req.on('end' , ()=>{
             const parseBody = Buffer.concat(body).toString();
             const message = parseBody.split('=')[1];
             // Guardando el mensaje en un archivo
-            fs.writeFileSync('message.txt', message);
-            //Establecer el status code
+            fs.writeFile('message.txt',message, (err)=>{
+                //Verificar si hubo error 
+                if(err){
+                    console.log("> No se pudo grabar el archivo");
+                    res.statusCode = 500;
+                    res.setHeader("Content-Type", "text/html");
+                    res.write("ERROR WHEN LOADING FILE");
+                    return res.end();
+                }
+                // en caso de no haber error, establecer el status code de redireccionamiento
+                //Establecer el status code
             res.statusCode = 302;
             //Establecer la ruta de direcciones
             res.setHeader('Location','/');
             //Finalizo conección
             return res.end();
-            
+            });
         });
         }
         else if(url === '/author'){
