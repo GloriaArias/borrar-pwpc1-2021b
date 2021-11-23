@@ -8,27 +8,16 @@ import Express from 'express'
 // Crear una instancia de Express
 const app = Express();
 
-// Registrando el primer middleware
-app.use((req, res, next)=>{
+app.use('/about',(_, res)=>{
     // Registrar un mensaje en el log
-    console.log("Estoy en el middleware 1");
-    // dar la instrucción de pasar al siguiente middleware
-    next()
+    console.log('Se ha realizado la petición: "/about"');
+    res.send("<h1>Acerca de...</h1>\n Sitio inicial hecho con NodeJs");
 });
 
-// Registrando el segundo middleware
-app.use((req, res, next)=>{
+app.use('/',(_, res)=>{
     // Registrar un mensaje en el log
-    console.log("Estoy en el middleware 2");
-    // dar la instrucción de pasar al siguiente middleware
-    next()
-});
-
-app.use((_, res)=>{
-    // Registrar un mensaje en el log
-    console.log("Estoy en el middleware 3");
-    console.log("Emitiendo respuesta a cliente");
-    res.send("<h1>Mi respuesta</h1>\n Hola");
+    console.log('Se ha realizado la petición: "/"');
+    res.send("<h1>My APP</h1>\n Bienvenido a este sitio");
 });
 
 // Poniendo a escuchar la app de express
