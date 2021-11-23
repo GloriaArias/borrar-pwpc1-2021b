@@ -2,12 +2,13 @@
 import http from 'http';
 // 2. Importando el module de routes
 import routes from "./routes.js";
+// 3. Importando express
+import Express from 'express'
 
-// 2. Crear el servidor
-//cb es una *función* que se ejecutará
-//ante cualquier petición de un recurso a nuestro server
-//(request, response)
-    const server = http.createServer(routes.requestHandler);
+// Crear una instancia de Express
+const app = Express();
+// 2. Crear el servidor tomando como manejador de peticiones a express
+    const server = http.createServer(app);
    
 // 3. Pongo a trabajar el servidor
 //le paso un callback que escribira en la consola
