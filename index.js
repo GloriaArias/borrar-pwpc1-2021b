@@ -7,13 +7,32 @@ import Express from 'express'
 
 // Crear una instancia de Express
 const app = Express();
-// 2. Crear el servidor tomando como manejador de peticiones a express
-    const server = http.createServer(app);
-   
-// 3. Pongo a trabajar el servidor
-//le paso un callback que escribira en la consola
-//cuando el servidor este escuchando
-//192.168.56.1
-server.listen(3000, '0.0.0.0',()=>{
+
+// Registrando el primer middleware
+app.use((req, res, next)=>{
+    // Registrar un mensaje en el log
+    console.log("Estoy en el middleware 1");
+    // dar la instrucción de pasar al siguiente middleware
+    next()
+});
+
+// Registrando el segundo middleware
+app.use((req, res, next)=>{
+    // Registrar un mensaje en el log
+    console.log("Estoy en el middleware 2");
+    // dar la instrucción de pasar al siguiente middleware
+    next()
+});
+
+app.use((_, res)=>{
+    // Registrar un mensaje en el log
+    console.log("Estoy en el middleware 3");
+    console.log("Emitiendo respuesta a cliente");
+    res.send("<h1>Mi respuesta</h1>\n Hola");
+});
+
+// Poniendo a escuchar la app de express
+app.listen(3000, '0.0.0.0',() => {
     console.log("Servidor escuchando en http://0.0.0.0:3000");
 });
+
