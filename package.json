@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "echo \"Iniciando Programa...\" && node index",
-    "dev": "set enviroment=DEVELOPMENT && nodemon index",
+    "dev": "set NODE_ENV=DEVELOPMENT && nodemon index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

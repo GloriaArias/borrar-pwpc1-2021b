@@ -5,6 +5,8 @@ import routes from "./routes.js";
 // 3. Importando express
 import Express from 'express'
 
+console.log(`Variable de entorno: ${process.env.NODE_ENV}`);
+
 // Crear una instancia de Express
 const app = Express();
 
