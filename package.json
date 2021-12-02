@@ -4,8 +4,8 @@
   "description": "Proyecto de pwpc1",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env echo \"Iniciando Programa...\" && NODE_ENV=production node index",
-    "dev": "cross-env NODE_ENV=development nodemon index",
+    "start": "cross-env echo \"Iniciando Programa...\" && NODE_ENV=production node server/main.js",
+    "dev": "cross-env NODE_ENV=development nodemon server/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
