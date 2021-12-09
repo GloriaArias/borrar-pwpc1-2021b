@@ -33,8 +33,8 @@ app.use('/admin', adminRoute);
 app.use(homeRoute);
 
 // 404 error page
-router.get((req, res, next)=>{
-    const filePath = path.join(ROOT_DIR, "server", "views", "error.html");
+app.use((req, res, next)=>{
+    const filePath = path.join(ROOT_DIR, "server", "views", "not-found.html");
     res.sendFile(filePath);
 });
 
