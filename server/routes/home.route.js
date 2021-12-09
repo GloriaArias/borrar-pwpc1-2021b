@@ -8,7 +8,8 @@ const router = Router();
 
 // 3 Registrar rutas a mi enrutador
 router.get('/about',(_, res)=>{
-    res.send("<h1>Acerca de...</h1>\n Sitio inicial hecho con NodeJs");
+    const filePath= path.join(path.resolve(), "server", "views", "about.html")
+    res.sendFile(filePath);
 });
 
 // La ruta raiz entra en todo tipo de petición

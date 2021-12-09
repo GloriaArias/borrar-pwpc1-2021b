@@ -2,6 +2,10 @@
 // $ npm i express -S
 import Express from 'express'
 
+import path from 'path'
+
+import router from './routes/admin.route.js';
+
 // Importar enrutadores
 import adminRoute from './routes/admin.route.js'
 import homeRoute from './routes/home.route.js'
@@ -25,9 +29,11 @@ app.use((req,_,next)=>{
 app.use('/admin', adminRoute);
 // Se agrega a la aplicacion de la ruta home
 app.use(homeRoute);
+
 // 404 error page
-app.use((req, res, next)=>{
-    res.status(404).send('<h1>🙁 Recurso no encontrado </h1>');
+router.get((req, res, next)=>{
+    const filePath = path.join(path.resolve(), "server", "views", "404.html")
+    res.status(404).sendFile(filePath);
 });
 
 // Poniendo a escuchar la app de express
