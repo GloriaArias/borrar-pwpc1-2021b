@@ -4,6 +4,8 @@ import Express from 'express'
 
 import path from 'path'
 
+import { ROOT_DIR } from './helpers/path.helper.js';
+
 import router from './routes/admin.route.js';
 
 // Importar enrutadores
@@ -32,8 +34,8 @@ app.use(homeRoute);
 
 // 404 error page
 router.get((req, res, next)=>{
-    const filePath = path.join(path.resolve(), "server", "views", "404.html")
-    res.status(404).sendFile(filePath);
+    const filePath = path.join(ROOT_DIR, "server", "views", "error.html");
+    res.sendFile(filePath);
 });
 
 // Poniendo a escuchar la app de express
