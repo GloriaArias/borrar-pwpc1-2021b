@@ -20,9 +20,9 @@ router.get('/about',(_, res)=>{
 
 // La ruta raiz entra en todo tipo de petición
 router.get(['/','/home'],(_, res)=>{
-    console.log(`📜 Inventaro de Productos: ${JSON.stringify(products)}`);
-    const filePath= path.join(ROOT_DIR, "server", "views", "shop.html");
-    res.sendFile(filePath);
+    console.log(`📜 Inventario de Productos: ${JSON.stringify(products)}`);
+    console.log("Sirviendo recurso: 'shop.html");
+    res.render('shop');
 });
 
 // Exportando el router de la subruta de admin
