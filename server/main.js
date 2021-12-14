@@ -1,16 +1,13 @@
 // 3. Importando express
 // $ npm i express -S
 import Express from 'express'
-
 import path from 'path'
 
 import { ROOT_DIR } from './helpers/path.helper.js';
 
-import router from './routes/admin.route.js';
-
 // Importar enrutadores
-import adminRoute from './routes/admin.route.js'
-import homeRoute from './routes/home.route.js'
+import { router as adminRoute } from './routes/admin.route.js';
+import homeRoute from './routes/home.route.js';
 
 console.log(`Variable de entorno: ${process.env.NODE_ENV}`);
 
@@ -26,6 +23,9 @@ app.use((req,_,next)=>{
     next();
 
 });
+
+// Registrando el middeware que maneja el servicio de archivos estáticos
+app.use(Express.static(path.join(ROOT_DIR, 'public')));
 
 // Se agrega a la aplicación de la ruta admin
 app.use('/admin', adminRoute);
